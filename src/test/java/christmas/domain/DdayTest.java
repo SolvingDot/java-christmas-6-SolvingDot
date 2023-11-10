@@ -2,7 +2,7 @@ package christmas.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.constants.DiscountAmount;
+import christmas.constants.EventBenefits;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -35,8 +35,8 @@ class DdayTest {
         int discountAmount = dday.checkForDiscount(date);
 
         // Then
-        assertThat(discountAmount).isEqualTo(DiscountAmount.DDAY.getAmount()
-                + DiscountAmount.DDAY_INCREASED.getAmount() * (date - 1));
+        assertThat(discountAmount).isEqualTo(EventBenefits.DDAY_DISCOUNT.getBenefit()
+                + EventBenefits.DDAY_DISCOUNT_INCREASE.getBenefit() * (date - 1));
     }
 
     private static IntStream provideDatesInDdayRange() {

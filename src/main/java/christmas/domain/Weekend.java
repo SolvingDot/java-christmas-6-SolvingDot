@@ -1,6 +1,6 @@
 package christmas.domain;
 
-import christmas.constants.DiscountAmount;
+import christmas.constants.EventBenefits;
 import christmas.constants.EventDates;
 
 public class Weekend {
@@ -8,7 +8,7 @@ public class Weekend {
         if (isWeekend(date) && isMainDish(menu)) {
             return calcuateDiscountAmount(numberOfMenu);
         }
-        return DiscountAmount.NO_DISCOUNT.getAmount();
+        return EventBenefits.NOTHING.getBenefit();
     }
 
     private boolean isWeekend(int date) {
@@ -20,6 +20,6 @@ public class Weekend {
     }
 
     private int calcuateDiscountAmount(int numberOfMenu) {
-        return numberOfMenu * DiscountAmount.WEEKEND.getAmount();
+        return numberOfMenu * EventBenefits.WEEKEND_DISCOUNT.getBenefit();
     }
 }

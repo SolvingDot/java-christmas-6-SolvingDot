@@ -1,6 +1,6 @@
 package christmas.domain;
 
-import christmas.constants.DiscountAmount;
+import christmas.constants.EventBenefits;
 import christmas.constants.EventDates;
 
 public class Dday {
@@ -8,7 +8,7 @@ public class Dday {
         if (isInDdayRange(date)) {
             return calcuateDiscountAmount(date);
         }
-        return DiscountAmount.NO_DISCOUNT.getAmount();
+        return EventBenefits.NOTHING.getBenefit();
     }
 
     private boolean isInDdayRange(int date) {
@@ -16,6 +16,6 @@ public class Dday {
     }
 
     private int calcuateDiscountAmount(int date) {
-        return DiscountAmount.DDAY.getAmount() + DiscountAmount.DDAY_INCREASED.getAmount() * (date - 1);
+        return EventBenefits.DDAY_DISCOUNT.getBenefit() + EventBenefits.DDAY_DISCOUNT_INCREASE.getBenefit() * (date - 1);
     }
 }

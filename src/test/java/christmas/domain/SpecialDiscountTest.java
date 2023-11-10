@@ -3,7 +3,7 @@ package christmas.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-import christmas.constants.DiscountAmount;
+import christmas.constants.EventBenefits;
 import christmas.constants.EventDates;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.DisplayName;
@@ -23,7 +23,7 @@ class SpecialDiscountTest {
         int discountAmount = specialDiscount.checkForDiscount(date);
 
         // Then
-        assertThat(discountAmount).isEqualTo(DiscountAmount.NO_DISCOUNT.getAmount());
+        assertThat(discountAmount).isEqualTo(EventBenefits.NOTHING.getBenefit());
     }
 
     @DisplayName("이벤트 달력에 별이 있는 날짜이면 특별 할인 금액을 적용한다.")
@@ -38,7 +38,7 @@ class SpecialDiscountTest {
         int discountAmount = specialDiscount.checkForDiscount(date);
 
         // Then
-        assertThat(discountAmount).isEqualTo(DiscountAmount.SPECIAL.getAmount());
+        assertThat(discountAmount).isEqualTo(EventBenefits.SPECIAL_DISCOUNT.getBenefit());
     }
 
     private static IntStream provideAllDatesInDecember() {
