@@ -2,6 +2,7 @@ package christmas.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.constants.DiscountAmount;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,7 +18,7 @@ class DdayTest {
         final Dday dday = new Dday();
 
         // When
-        int discountAmount = dday.calculateDiscountAmount(date);
+        int discountAmount = dday.checkForDiscount(date);
 
         // Then
         assertThat(discountAmount).isEqualTo(0);
@@ -26,15 +27,16 @@ class DdayTest {
     @DisplayName("1~25일 사이의 날짜에 대한 디데이 이벤트 할인 금액을 계산한다.")
     @MethodSource("provideDatesInDdayRange")
     @ParameterizedTest
-    void calculateDiscountAmount_WhenDateIsInDdayRange(int date) {
+    void applyDdayDiscount_WhenDateIsInDdayRange(int date) {
         // Given
         final Dday dday = new Dday();
 
         // When
-        int discountAmount = dday.calculateDiscountAmount(date);
+        int discountAmount = dday.checkForDiscount(date);
 
         // Then
-        assertThat(discountAmount).isEqualTo(1000 + 100 * (date - 1));
+        assertThat(discountAmount).isEqualTo(DiscountAmount.DDAY.getAmount()
+                + DiscountAmount.DDAY_INCREASED.getAmount() * (date - 1));
     }
 
     private static IntStream provideDatesInDdayRange() {

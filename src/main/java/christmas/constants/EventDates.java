@@ -8,6 +8,7 @@ public class EventDates {
     public static final int LAST_DATE = 31;
     public static final int CHRISTMAS = 25;
     public static final List<Integer> WEEKEND = Arrays.asList(1, 2, 8, 9, 15, 16, 22, 23, 29, 30);
+    public static final List<Integer> SPECIAL = Arrays.asList(3, 10, 17, 24, 25, 31);
 
 
 }

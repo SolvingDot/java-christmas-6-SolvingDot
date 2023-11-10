@@ -6,7 +6,7 @@ public enum DiscountAmount {
     DDAY_INCREASED(100),
     WEEKDAY(2023),
     WEEKEND(2023),
-    STAR(1000);
+    SPECIAL(1000);
 
     private final int amount;
 

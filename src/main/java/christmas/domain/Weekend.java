@@ -4,9 +4,9 @@ import christmas.constants.DiscountAmount;
 import christmas.constants.EventDates;
 
 public class Weekend {
-    public int calculateDiscountAmount(int date, String menu, int numberOfMenu) {
+    public int checkForDiscount(int date, String menu, int numberOfMenu) {
         if (isWeekend(date) && isMainDish(menu)) {
-            return numberOfMenu * DiscountAmount.WEEKEND.getAmount();
+            return calcuateDiscountAmount(numberOfMenu);
         }
         return DiscountAmount.NO_DISCOUNT.getAmount();
     }
@@ -17,5 +17,9 @@ public class Weekend {
 
     private boolean isMainDish(String menu) {
         return menu.equals("MainDish");
+    }
+
+    private int calcuateDiscountAmount(int numberOfMenu) {
+        return numberOfMenu * DiscountAmount.WEEKEND.getAmount();
     }
 }
