@@ -1,11 +1,11 @@
-package christmas.domain;
+package christmas.domain.event;
 
 import christmas.constants.EventBenefits;
 import christmas.constants.EventDates;
 
 public class Weekend {
-    public int checkForDiscount(int date, String menu, int numberOfMenu) {
-        if (isWeekend(date) && isMainDish(menu)) {
+    public int checkForDiscount(int date, String menuName, int numberOfMenu) {
+        if (isWeekend(date) && isMainDish(menuName)) {
             return calcuateDiscountAmount(numberOfMenu);
         }
         return EventBenefits.NOTHING.getBenefit();
@@ -15,8 +15,8 @@ public class Weekend {
         return EventDates.WEEKEND.contains(date);
     }
 
-    private boolean isMainDish(String menu) {
-        return menu.equals("MainDish");
+    private boolean isMainDish(String menuName) {
+        return menuName.equals("MainDish");
     }
 
     private int calcuateDiscountAmount(int numberOfMenu) {
