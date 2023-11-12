@@ -10,6 +10,7 @@ import java.util.stream.IntStream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class WeekdayTest {
     @DisplayName("날짜가 주말이면 평일 할인 금액은 0원이다.")
@@ -21,7 +22,7 @@ class WeekdayTest {
         final Weekday weekday = new Weekday();
 
         // When
-        int discountAmount = weekday.checkForDiscount(date, "Dessert", 3);
+        int discountAmount = weekday.checkForDiscount(date, "초코케이크", 3);
 
         // Then
         assertThat(discountAmount).isEqualTo(EventBenefits.NOTHING.getBenefit());
@@ -36,7 +37,7 @@ class WeekdayTest {
         final Weekday weekday = new Weekday();
 
         // When
-        int discountAmount = weekday.checkForDiscount(date, "MainDish", 3);
+        int discountAmount = weekday.checkForDiscount(date, "해산물파스타", 3);
 
         // Then
         assertThat(discountAmount).isEqualTo(EventBenefits.NOTHING.getBenefit());
@@ -51,13 +52,13 @@ class WeekdayTest {
         final Weekday weekday = new Weekday();
 
         // When
-        int discountAmount = weekday.checkForDiscount(date, "Dessert", 3);
+        int discountAmount = weekday.checkForDiscount(date, "초코케이크", 3);
 
         // Then
         assertThat(discountAmount).isEqualTo(3 * EventBenefits.WEEKDAY_DISCOUNT.getBenefit());
     }
 
     private static IntStream provideAllDatesInDecember() {
-        return IntStream.rangeClosed(1, 31);
+        return IntStream.rangeClosed(EventDates.FIRST_DATE, EventDates.LAST_DATE);
     }
 }

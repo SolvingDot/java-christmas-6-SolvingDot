@@ -21,7 +21,7 @@ class WeekendTest {
         final Weekend weekend = new Weekend();
 
         // When
-        int discountAmount = weekend.checkForDiscount(date, "MainDish", 3);
+        int discountAmount = weekend.checkForDiscount(date, "해산물파스타", 3);
 
         // Then
         assertThat(discountAmount).isEqualTo(EventBenefits.NOTHING.getBenefit());
@@ -36,7 +36,7 @@ class WeekendTest {
         final Weekend weekend = new Weekend();
 
         // When
-        int discountAmount = weekend.checkForDiscount(date, "Dessert", 3);
+        int discountAmount = weekend.checkForDiscount(date, "초코케이크", 3);
 
         // Then
         assertThat(discountAmount).isEqualTo(EventBenefits.NOTHING.getBenefit());
@@ -51,14 +51,14 @@ class WeekendTest {
         final Weekend weekend = new Weekend();
 
         // When
-        int discountAmount = weekend.checkForDiscount(date, "MainDish", 3);
+        int discountAmount = weekend.checkForDiscount(date, "해산물파스타", 3);
 
         // Then
         assertThat(discountAmount).isEqualTo(3 * EventBenefits.WEEKEND_DISCOUNT.getBenefit());
     }
 
     private static IntStream provideAllDatesInDecember() {
-        return IntStream.rangeClosed(1, 31);
+        return IntStream.rangeClosed(EventDates.FIRST_DATE, EventDates.LAST_DATE);
     }
 
 }

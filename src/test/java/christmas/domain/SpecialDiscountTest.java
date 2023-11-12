@@ -43,6 +43,6 @@ class SpecialDiscountTest {
     }
 
     private static IntStream provideAllDatesInDecember() {
-        return IntStream.rangeClosed(1, 31);
+        return IntStream.rangeClosed(EventDates.FIRST_DATE, EventDates.LAST_DATE);
     }
 }

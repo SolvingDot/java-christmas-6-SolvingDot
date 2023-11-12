@@ -2,6 +2,7 @@ package christmas.domain.event;
 
 import christmas.constants.EventBenefits;
 import christmas.constants.EventDates;
+import christmas.constants.Menu;
 
 public class Weekday {
     public int checkForDiscount(int date, String menuName, int numberOfMenu) {
@@ -16,7 +17,16 @@ public class Weekday {
     }
 
     private boolean isDessert(String menuName) {
-        return menuName.equals("Dessert");
+        return readTypeOfMenu(menuName).equals("디저트");
+    }
+
+    private String readTypeOfMenu(String menuName) {
+        for (Menu menu : Menu.values()) {
+            if (menu.getName().equals(menuName)) {
+                return menu.getType();
+            }
+        }
+        throw new IllegalArgumentException("메뉴판에 없는 메뉴입니다.");
     }
 
     private int calcuateDiscountAmount(int numberOfMenu) {

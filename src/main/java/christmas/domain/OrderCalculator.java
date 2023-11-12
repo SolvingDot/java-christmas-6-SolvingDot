@@ -3,7 +3,7 @@ package christmas.domain;
 import christmas.constants.Menu;
 import java.util.Map;
 
-public class OrderCalculaor {
+public class OrderCalculator {
     public int calculateTotalOrderAmount(Map<String, Integer> orderDetails) {
         int totalOrderAmount = 0;
         for (String menuName : orderDetails.keySet()) {

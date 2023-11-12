@@ -3,6 +3,7 @@ package christmas.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.constants.EventBenefits;
+import christmas.constants.EventDates;
 import christmas.domain.event.Dday;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.DisplayName;
@@ -41,6 +42,6 @@ class DdayTest {
     }
 
     private static IntStream provideDatesInDdayRange() {
-        return IntStream.rangeClosed(1, 25);
+        return IntStream.rangeClosed(EventDates.FIRST_DATE, EventDates.CHRISTMAS);
     }
 }
