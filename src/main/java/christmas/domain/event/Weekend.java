@@ -7,7 +7,7 @@ import christmas.constants.Menu;
 public class Weekend {
     public int checkForDiscount(int date, String menuName, int numberOfMenu) {
         if (isWeekend(date) && isMainDish(menuName)) {
-            return calcuateDiscountAmount(numberOfMenu);
+            return calculateDiscountAmount(numberOfMenu);
         }
         return EventBenefits.NOTHING.getBenefit();
     }
@@ -29,7 +29,7 @@ public class Weekend {
         throw new IllegalArgumentException("메뉴판에 없는 메뉴입니다.");
     }
 
-    private int calcuateDiscountAmount(int numberOfMenu) {
+    private int calculateDiscountAmount(int numberOfMenu) {
         return numberOfMenu * EventBenefits.WEEKEND_DISCOUNT.getBenefit();
     }
 }
