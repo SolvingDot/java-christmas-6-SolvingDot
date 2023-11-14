@@ -1,5 +1,7 @@
 package christmas.constants;
 
+import java.util.List;
+
 public enum Menu {
     // 에피타이저
     MUSHROOM_SOUP("양송이수프", 6_000, "에피타이저"),
@@ -41,5 +43,14 @@ public enum Menu {
 
     public String getType() {
         return type;
+    }
+
+    public static String getTypeByName(String menuName) {
+        for (Menu menu : Menu.values()) {
+            if (menu.getName().equals(menuName)) {
+                return menu.getType();
+            }
+        }
+        return null;
     }
 }
