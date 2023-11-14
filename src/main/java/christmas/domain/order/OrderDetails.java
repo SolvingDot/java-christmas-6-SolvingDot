@@ -12,7 +12,7 @@ public class OrderDetails {
     private static final String DASH = "-";
     private static final int INCLUDE_EMPTY = -1;
 
-    private OrderValidator validator;
+    private final OrderValidator validator;
 
     public OrderDetails(OrderValidator validator) {
         this.validator = validator;

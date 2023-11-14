@@ -17,16 +17,7 @@ public class Weekday {
     }
 
     private boolean isDessert(String menuName) {
-        return readTypeOfMenu(menuName).equals("디저트");
-    }
-
-    private String readTypeOfMenu(String menuName) {
-        for (Menu menu : Menu.values()) {
-            if (menu.getName().equals(menuName)) {
-                return menu.getType();
-            }
-        }
-        throw new IllegalArgumentException("메뉴판에 없는 메뉴입니다.");
+        return Menu.getTypeByName(menuName).equals("디저트");
     }
 
     private int calculateDiscountAmount(int numberOfMenu) {

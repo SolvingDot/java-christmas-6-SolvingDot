@@ -1,41 +1,46 @@
 package christmas.domain.event;
 
 import christmas.constants.EventBenefits;
-import christmas.domain.Date;
-import christmas.domain.OrderCalculator;
+import christmas.domain.order.OrderCalculator;
 import java.util.HashMap;
 import java.util.Map;
 
 public class EventManager {
-    // 날짜, 메뉴
-    int date = new Date(24).getDate();
-    String menuName = "양송이수프";
-    int numberOfMenu = 2;
+    private static final int MINIMUM_AMOUNT = 10_000;
 
-    // 전체 주문 금액
-    public int readOrderAmount(Map<String, Integer> orderDetails) {
-        OrderCalculator calculator = new OrderCalculator();
-        return calculator.calculateTotalOrderAmount(Map.of("양송이수프", 2));
-    }
-
-    // 모든 이벤트 결과 합 = 총 혜택 금액
-    public int calculateTotalBenefitAmount(Map<String, Integer> benefitsTable) {
-        int totalBenefitAmount = 0;
-        for (String event : benefitsTable.keySet()) {
-            totalBenefitAmount += benefitsTable.get(event);
+    public Map<String, Integer> applyEvents(int date, Map<String, Integer> orderTable) {
+        if (meetEventApplicableCondition(readOrderAmount(orderTable))) {
+            return makeTotalBenefitsTable(date, orderTable);
         }
-        return totalBenefitAmount;
+        return makeNoBenefitTable();
     }
 
-    private Map<String, Integer> makeOrderBenefitsTable(int date, String menuName, int numberOfMenu) {
+    private boolean meetEventApplicableCondition(int totalOrderAmount) {
+        return totalOrderAmount >= MINIMUM_AMOUNT;
+    }
+
+    private int readOrderAmount(Map<String, Integer> orderTable) {
+        OrderCalculator calculator = new OrderCalculator();
+        return calculator.calculateTotalOrderAmount(orderTable);
+    }
+
+    private Map<String, Integer> makeNoBenefitTable() {
+        Map<String, Integer> benefitsTable = new HashMap<>();
+        benefitsTable.put(EventBenefits.DDAY_DISCOUNT.getDetail(), EventBenefits.NOTHING.getBenefit());
+        benefitsTable.put(EventBenefits.WEEKDAY_DISCOUNT.getDetail(), EventBenefits.NOTHING.getBenefit());
+        benefitsTable.put(EventBenefits.WEEKEND_DISCOUNT.getDetail(), EventBenefits.NOTHING.getBenefit());
+        benefitsTable.put(EventBenefits.SPECIAL_DISCOUNT.getDetail(), EventBenefits.NOTHING.getBenefit());
+        benefitsTable.put(EventBenefits.FREE_CHAMPAGNE.getDetail(), EventBenefits.NOTHING.getBenefit());
+        return benefitsTable;
+    }
+
+    private Map<String, Integer> makeTotalBenefitsTable(int date, Map<String, Integer> orderTable) {
         Map<String, Integer> benefitsTable = new HashMap<>();
         benefitsTable.put(EventBenefits.DDAY_DISCOUNT.getDetail(), readDdayBenefit(date));
-        benefitsTable.put(EventBenefits.WEEKDAY_DISCOUNT.getDetail(),
-                readWeekdayBenefit(date, menuName, numberOfMenu));
-        benefitsTable.put(EventBenefits.WEEKEND_DISCOUNT.getDetail(),
-                readWeekendBenefit(date, menuName, numberOfMenu));
+        benefitsTable.put(EventBenefits.WEEKDAY_DISCOUNT.getDetail(), readWeekdayBenefit(date, orderTable));
+        benefitsTable.put(EventBenefits.WEEKEND_DISCOUNT.getDetail(), readWeekendBenefit(date, orderTable));
         benefitsTable.put(EventBenefits.SPECIAL_DISCOUNT.getDetail(), readSpecialBenefit(date));
-        benefitsTable.put(EventBenefits.FREE_CHAMPAGNE.getDetail(), 0);
+        benefitsTable.put(EventBenefits.FREE_CHAMPAGNE.getDetail(), readGiftBenefit(orderTable));
         return benefitsTable;
     }
 
@@ -46,26 +51,32 @@ public class EventManager {
     }
 
     // 평일 할인 이벤트 결과
-    private int readWeekdayBenefit(int date, String menuName, int numberOfMenu) {
+    private int readWeekdayBenefit(int date, Map<String, Integer> orderTable) {
         Weekday weekday = new Weekday();
-        return weekday.checkForDiscount(date, menuName, numberOfMenu);
+        int weekdayBenefit = EventBenefits.NOTHING.getBenefit();
+        for (String menuName : orderTable.keySet()) {
+            weekdayBenefit += weekday.checkForDiscount(date, menuName, orderTable.get(menuName));
+        }
+        return weekdayBenefit;
     }
 
     // 주말 할인 이벤트 결과
-    private int readWeekendBenefit(int date, String menuName, int numberOfMenu) {
+    private int readWeekendBenefit(int date, Map<String, Integer> orderTable) {
         Weekend weekend = new Weekend();
-        return weekend.checkForDiscount(date, menuName, numberOfMenu);
+        int weekendBenefit = EventBenefits.NOTHING.getBenefit();
+        for (String menuName : orderTable.keySet()) {
+            weekendBenefit += weekend.checkForDiscount(date, menuName, orderTable.get(menuName));
+        }
+        return weekendBenefit;
     }
 
-    // 특별 할인 이벤트 결과
     private int readSpecialBenefit(int date) {
         SpecialDiscount special = new SpecialDiscount();
         return special.checkForDiscount(date);
     }
 
-    // 증정 이벤트 결과
-    private int readGiftBenefit(int totalOrderAmount) {
+    private int readGiftBenefit(Map<String, Integer> orderTable) {
         Gift gift = new Gift();
-        return gift.checkForGift(totalOrderAmount);
+        return gift.checkForGift(readOrderAmount(orderTable));
     }
 }
