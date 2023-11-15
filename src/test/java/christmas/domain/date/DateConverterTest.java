@@ -3,7 +3,7 @@ package christmas.domain.date;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.validator.Validator;
+import christmas.validator.DateValidator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,8 +18,8 @@ class DateConverterTest {
     @ParameterizedTest
     void createNonNumericValue(String input) {
         // Given
-        Validator validator = new Validator();
-        DateConverter converter = new DateConverter(validator);
+        DateValidator dateValidator = new DateValidator();
+        DateConverter converter = new DateConverter(dateValidator);
 
         // When, Then
         assertThatThrownBy(() -> converter.convertToDate(input))
@@ -30,8 +30,8 @@ class DateConverterTest {
     @Test
     void convertToDateTest() {
         // Given
-        Validator validator = new Validator();
-        DateConverter converter = new DateConverter(validator);
+        DateValidator dateValidator = new DateValidator();
+        DateConverter converter = new DateConverter(dateValidator);
 
         // When
         int date = converter.convertToDate(CHRISTMAS_DATE_TEXT);

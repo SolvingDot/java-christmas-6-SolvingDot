@@ -1,13 +1,15 @@
 package christmas.domain.calculator;
 
 import christmas.constants.EventBenefits;
-import christmas.domain.order.OrderAmount;
+import christmas.domain.event.BenifitsTable;
+import christmas.domain.event.Gift;
+import christmas.domain.order.OrderPrice;
 import java.util.Map;
 
 public class Calculator {
     public int calculatePaymentAmount(Map<String, Integer> orderTable, Map<String, Integer> benefitsTable) {
-        OrderAmount calculator = new OrderAmount();
-        return calculator.calculateTotalOrderAmount(orderTable) - calculateTotalDiscountAmount(benefitsTable);
+        OrderPrice calculator = new OrderPrice();
+        return calculator.calculateTotalOrderPrice(orderTable) - calculateTotalDiscountAmount(benefitsTable);
     }
 
     public int calculateTotalBenefitAmount(Map<String, Integer> benefitsTable) {
@@ -19,14 +21,10 @@ public class Calculator {
     }
 
     private int calculateTotalDiscountAmount(Map<String, Integer> benefitsTable) {
-        if (receiveChampagne(benefitsTable)) {
+        Gift gift = new Gift();
+        if (gift.receiveChampagne(benefitsTable)) {
             return calculateTotalBenefitAmount(benefitsTable) - EventBenefits.FREE_CHAMPAGNE.getBenefit();
         }
         return calculateTotalBenefitAmount(benefitsTable);
-    }
-
-    private boolean receiveChampagne(Map<String, Integer> benefitsTable) {
-        return benefitsTable.get(EventBenefits.FREE_CHAMPAGNE.getDetail())
-                .equals(EventBenefits.FREE_CHAMPAGNE.getBenefit());
     }
 }

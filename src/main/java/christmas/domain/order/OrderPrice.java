@@ -3,20 +3,20 @@ package christmas.domain.order;
 import christmas.constants.Menu;
 import java.util.Map;
 
-public class OrderAmount {
+public class OrderPrice {
     private static final int NO_ORDER = 0;
 
-    public int calculateTotalOrderAmount(Map<String, Integer> orderTable) {
-        int totalOrderAmount = NO_ORDER;
+    public int calculateTotalOrderPrice(Map<String, Integer> orderTable) {
+        int totalOrderPrice = NO_ORDER;
         for (String menuName : orderTable.keySet()) {
             int price = Menu.getPriceByName(menuName);
             int numberOfMenuItems = orderTable.get(menuName);
-            totalOrderAmount += calculateOrderAmountByEachMenu(price, numberOfMenuItems);
+            totalOrderPrice += calculateOrderPriceByEachMenu(price, numberOfMenuItems);
         }
-        return totalOrderAmount;
+        return totalOrderPrice;
     }
 
-    private int calculateOrderAmountByEachMenu(int price, int numberOfMenuItems) {
+    private int calculateOrderPriceByEachMenu(int price, int numberOfMenuItems) {
         return price * numberOfMenuItems;
     }
 }

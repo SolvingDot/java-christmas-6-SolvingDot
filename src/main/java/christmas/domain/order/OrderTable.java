@@ -1,7 +1,7 @@
 package christmas.domain.order;
 
 import christmas.constants.Menu;
-import christmas.validator.Validator;
+import christmas.validator.OrderValidator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,10 +13,10 @@ public class OrderTable {
     private static final String DASH = "-";
     private static final int INCLUDE_EMPTY = -1;
 
-    private final Validator validator;
+    private final OrderValidator orderValidator;
 
-    public OrderTable(Validator validator) {
-        this.validator = validator;
+    public OrderTable(OrderValidator orderValidator) {
+        this.orderValidator = orderValidator;
     }
 
     public Map<String, Integer> makeOrderTable(String input) {
@@ -24,9 +24,9 @@ public class OrderTable {
         Map<String, Integer> orderTable = new HashMap<>();
         nameAndNumbers.stream()
                 .map(this::splitInputByDashIncludingEmpty)
-                .map(nameAndNumber -> new Order(nameAndNumber, validator))
+                .map(nameAndNumber -> new Order(nameAndNumber, orderValidator))
                 .forEach(order -> {
-                    validator.ensureNameIsNotDuplicated(order.getMenuName(), orderTable);
+                    orderValidator.ensureNameIsNotDuplicated(order.getMenuName(), orderTable);
                     orderTable.put(order.getMenuName(), order.getNumberOfMenu());
                 });
         validateOrderTable(orderTable);
@@ -34,10 +34,10 @@ public class OrderTable {
     }
 
     private List<String> splitInputToNameAndNumber(String input) {
-        validator.ensureNoEmptyInput(input);
-        validator.ensureInputHasDash(input);
+        orderValidator.ensureNoEmptyInput(input);
+        orderValidator.ensureInputHasDash(input);
         List<String> nameAndNumbers = splitInputByCommaIncludingEmpty(input);
-        validator.ensureNoEmptyPlace(nameAndNumbers);
+        orderValidator.ensureNoEmptyPlace(nameAndNumbers);
         return nameAndNumbers;
     }
 
@@ -50,8 +50,8 @@ public class OrderTable {
     }
 
     private void validateOrderTable(Map<String, Integer> orderTable) {
-        validator.ensureThereAreNotOnlyDrinks(readMenuTypes(orderTable));
-        validator.ensureTotalNumberOfMenuIsLimitedTwenty(sumNumberOfMenu(orderTable));
+        orderValidator.ensureThereAreNotOnlyDrinks(readMenuTypes(orderTable));
+        orderValidator.ensureTotalNumberOfMenuIsLimitedTwenty(sumNumberOfMenu(orderTable));
     }
 
     private List<String> readMenuTypes(Map<String, Integer> orderTable) {

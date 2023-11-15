@@ -1,28 +1,38 @@
 package christmas;
 
+import christmas.domain.date.Date;
 import christmas.domain.event.BenifitsTable;
 import christmas.domain.order.OrderTable;
-import christmas.validator.Validator;
+import christmas.validator.DateValidator;
+import christmas.validator.OrderValidator;
 import christmas.view.InputVeiw;
+import christmas.view.OutputView;
 import java.util.Map;
 
 public class Application {
     public static void main(String[] args) {
         // TODO: 프로그램 구현
-
-        String input_date = "25";
-        String input_order = "양송이수프-2,티본스테이크-1,제로콜라-2";
-
         InputVeiw input = new InputVeiw();
-        input.askDateToVisit();
+        OutputView output = new OutputView();
+        DateValidator dateValidator = new DateValidator();
+        OrderValidator orderValidator = new OrderValidator();
 
-        Validator validator = new Validator();
-        OrderTable order = new OrderTable(validator);
-        Map<String, Integer> orderTable = order.makeOrderTable(input_order);
+        Date date = null;
+        date = input.askToDateToVisit(input, date, dateValidator);
 
-        BenifitsTable manager = new BenifitsTable();
+        OrderTable order = new OrderTable(orderValidator);
+        Map<String, Integer> orderTable = null;
+        orderTable = input.askToOrder(input, order, orderTable);
+        output.printOrderedMenu(orderTable);
+        output.printTotalOrderPrice(orderTable);
 
+        BenifitsTable benifitsTable = new BenifitsTable();
+        Map<String, Integer> benefitTable = benifitsTable.applyEvents(date.getDate(), orderTable);
 
-        System.out.println(orderTable);
+        output.printGiftBenefit(benefitTable);
+        output.printBenefitDetails(benefitTable);
+        output.printTotalBenefitAmount(benefitTable);
+        output.printPaymentAmountAfterDiscount(orderTable, benefitTable);
+        output.printEventBadge(benefitTable);
     }
 }

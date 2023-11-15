@@ -1,16 +1,16 @@
 package christmas.domain.date;
 
-import christmas.validator.Validator;
+import christmas.validator.DateValidator;
 
 public class DateConverter {
-    private final Validator validator;
+    private final DateValidator dateValidator;
 
-    public DateConverter(Validator validator) {
-        this.validator = validator;
+    public DateConverter(DateValidator orderValidator) {
+        this.dateValidator = orderValidator;
     }
     public int convertToDate(String input) {
-        validator.ensureNoEmptyInput(input);
-        validator.ensureOnlyNumber(input);
+        dateValidator.ensureNoEmptyInput(input);
+        dateValidator.ensureOnlyNumber(input);
         return Integer.parseInt(input);
     }
 }

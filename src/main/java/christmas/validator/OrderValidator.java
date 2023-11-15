@@ -5,22 +5,22 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class Validator {
+public class OrderValidator {
     public void ensureNoEmptyInput(String input) {
         if (input.isEmpty()) {
-            throw new IllegalArgumentException("아무 입력이 없음");
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
 
     public void ensureInputHasDash(String input) {
         if (!input.contains("-")) {
-            throw new IllegalArgumentException("'-'가 없음");
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
 
     public void ensureNoEmptyPlace(List<String> splitInput) {
         if (containsEmptyPlace(splitInput)) {
-            throw new IllegalArgumentException("기호(, or -) 전 또는 후에 아무 입력이 없음");
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
 
@@ -30,7 +30,7 @@ public class Validator {
 
     public void ensureOnlyNumber(String input) {
         if (!isNumeric(input)) {
-            throw new IllegalArgumentException("숫자가 아닐 경우 제외");
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
 
@@ -40,13 +40,13 @@ public class Validator {
 
     public void ensureNumberOfMenuMoreThanOne(int numberOfMenu) {
         if (numberOfMenu < 1) {
-            throw new IllegalArgumentException("1보다 작을 경우 제외");
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
 
     public void ensureNameIsOnTheMenu(String menuName) {
         if (!isOnTheMenu(menuName)) {
-            throw new IllegalArgumentException("메뉴판에 없는 경우 제외");
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
 
@@ -56,19 +56,19 @@ public class Validator {
 
     public void ensureNameIsNotDuplicated(String menuName, Map<String, Integer> orderTable) {
         if (orderTable.containsKey(menuName)) {
-            throw new IllegalArgumentException("중복된 메뉴 입력은 제외");
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
 
     public void ensureTotalNumberOfMenuIsLimitedTwenty(int totalNumberOfMenu) {
         if (totalNumberOfMenu > 20) {
-            throw new IllegalArgumentException("메뉴 20개 초과 주문시 예외 발생");
+            throw new IllegalArgumentException("[ERROR] 메뉴는 한 번에 최대 20개까지만 주문할 수 있습니다.");
         }
     }
 
     public void ensureThereAreNotOnlyDrinks(List<String> menuTypes) {
         if (menuTypes.stream().allMatch(type -> type.equals(Menu.ZERO_COLA.getType()))) {
-            throw new IllegalArgumentException("음료만 주문할 수 없음");
+            throw new IllegalArgumentException("[ERROR] 음료만 주문 시, 주문할 수 없습니다.");
         }
     }
 }

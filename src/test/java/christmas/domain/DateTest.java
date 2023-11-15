@@ -3,6 +3,7 @@ package christmas.domain;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import christmas.domain.date.Date;
+import christmas.validator.DateValidator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -12,7 +13,11 @@ class DateTest {
     @ValueSource(ints = {-1, 0, 32})
     @ParameterizedTest
     void createDateOverTheRange(int dateOfVisit) {
-        assertThatThrownBy(() -> new Date(dateOfVisit))
+        // Given
+        DateValidator dateValidator = new DateValidator();
+
+        // When, Then
+        assertThatThrownBy(() -> new Date(dateOfVisit, dateValidator))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

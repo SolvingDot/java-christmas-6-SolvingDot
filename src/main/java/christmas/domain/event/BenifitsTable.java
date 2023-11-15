@@ -1,27 +1,27 @@
 package christmas.domain.event;
 
 import christmas.constants.EventBenefits;
-import christmas.domain.order.OrderAmount;
+import christmas.domain.order.OrderPrice;
 import java.util.HashMap;
 import java.util.Map;
 
 public class BenifitsTable {
-    private static final int MINIMUM_AMOUNT = 10_000;
+    private static final int MINIMUM_PRICE = 10_000;
 
     public Map<String, Integer> applyEvents(int date, Map<String, Integer> orderTable) {
-        if (meetEventApplicableCondition(readOrderAmount(orderTable))) {
+        if (meetEventApplicableCondition(readOrderPrice(orderTable))) {
             return makeTotalBenefitsTable(date, orderTable);
         }
         return makeNoBenefitTable();
     }
 
-    private boolean meetEventApplicableCondition(int totalOrderAmount) {
-        return totalOrderAmount >= MINIMUM_AMOUNT;
+    private boolean meetEventApplicableCondition(int totalOrderPrice) {
+        return totalOrderPrice >= MINIMUM_PRICE;
     }
 
-    private int readOrderAmount(Map<String, Integer> orderTable) {
-        OrderAmount calculator = new OrderAmount();
-        return calculator.calculateTotalOrderAmount(orderTable);
+    private int readOrderPrice(Map<String, Integer> orderTable) {
+        OrderPrice calculator = new OrderPrice();
+        return calculator.calculateTotalOrderPrice(orderTable);
     }
 
     private Map<String, Integer> makeNoBenefitTable() {
@@ -77,6 +77,6 @@ public class BenifitsTable {
 
     private int readGiftBenefit(Map<String, Integer> orderTable) {
         Gift gift = new Gift();
-        return gift.checkForGift(readOrderAmount(orderTable));
+        return gift.checkForGift(readOrderPrice(orderTable));
     }
 }
