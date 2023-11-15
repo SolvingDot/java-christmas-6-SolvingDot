@@ -1,5 +1,6 @@
 package christmas.domain.order;
 
+import christmas.validator.Validator;
 import java.util.List;
 
 public class Order {
@@ -9,14 +10,14 @@ public class Order {
     private final String menuName;
     private final int numberOfMenu;
 
-    public Order(List<String> nameAndNumber, OrderValidator validator) {
+    public Order(List<String> nameAndNumber, Validator validator) {
         validator.ensureNoEmptyPlace(nameAndNumber);
         this.menuName = nameAndNumber.get(INDEX_OF_NAME);
         validator.ensureNameIsOnTheMenu(menuName);
         this.numberOfMenu = convertNumberOfMenu(nameAndNumber.get(INDEX_OF_NUMBER), validator);
     }
 
-    private int convertNumberOfMenu(String number, OrderValidator validator) {
+    private int convertNumberOfMenu(String number, Validator validator) {
         validator.ensureOnlyNumber(number);
         int numberOfMenu = Integer.parseInt(number);
         validator.ensureNumberOfMenuMoreThanOne(numberOfMenu);

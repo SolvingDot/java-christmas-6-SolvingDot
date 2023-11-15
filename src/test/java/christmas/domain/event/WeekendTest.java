@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.domain.event;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;

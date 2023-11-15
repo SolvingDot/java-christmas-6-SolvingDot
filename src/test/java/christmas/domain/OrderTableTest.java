@@ -3,23 +3,22 @@ package christmas.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import christmas.domain.order.OrderDetails;
-import christmas.domain.order.OrderValidator;
+import christmas.domain.order.OrderTable;
+import christmas.validator.Validator;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class OrderDetailsTest {
+class OrderTableTest {
     @DisplayName("예외가 발생한다.")
     @Test
     void createEmptyInputBetweenComma() {
         // Given
-        OrderValidator validator = new OrderValidator();
-        OrderDetails order = new OrderDetails(validator);
+        Validator validator = new Validator();
+        OrderTable order = new OrderTable(validator);
 
         // When, Then
         assertThatThrownBy(() -> order.makeOrderTable("양송이수프-1"))
@@ -30,8 +29,8 @@ class OrderDetailsTest {
     @Test
     void createNoComma() {
         // Given
-        OrderValidator validator = new OrderValidator();
-        OrderDetails order = new OrderDetails(validator);
+        Validator validator = new Validator();
+        OrderTable order = new OrderTable(validator);
 
         // When
         Map<String, Integer> orderTable = order.makeOrderTable("양송이수프-1");
@@ -47,8 +46,8 @@ class OrderDetailsTest {
     @ParameterizedTest
     void createErrorCase(String input) {
         // Given
-        OrderValidator validator = new OrderValidator();
-        OrderDetails order = new OrderDetails(validator);
+        Validator validator = new Validator();
+        OrderTable order = new OrderTable(validator);
 
         // When, Then
         assertThatThrownBy(() -> order.makeOrderTable(input))

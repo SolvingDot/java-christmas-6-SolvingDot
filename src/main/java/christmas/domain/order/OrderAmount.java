@@ -3,9 +3,11 @@ package christmas.domain.order;
 import christmas.constants.Menu;
 import java.util.Map;
 
-public class OrderCalculator {
+public class OrderAmount {
+    private static final int NO_ORDER = 0;
+
     public int calculateTotalOrderAmount(Map<String, Integer> orderTable) {
-        int totalOrderAmount = 0;
+        int totalOrderAmount = NO_ORDER;
         for (String menuName : orderTable.keySet()) {
             int price = Menu.getPriceByName(menuName);
             int numberOfMenuItems = orderTable.get(menuName);

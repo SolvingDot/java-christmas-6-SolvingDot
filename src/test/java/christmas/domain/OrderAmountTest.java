@@ -4,17 +4,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import christmas.constants.Menu;
-import christmas.domain.order.OrderCalculator;
+import christmas.domain.order.OrderAmount;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class OrderCalculatorTest {
+class OrderAmountTest {
     @DisplayName("주문할 메뉴 이름과 개수에 따라 총 주문 금액을 계산한다.")
     @Test
     void calculateTotalOrderAmount_WhenMenuNameIsInMenu() {
         // Given
-        OrderCalculator calculator = new OrderCalculator();
+        OrderAmount calculator = new OrderAmount();
 
         // When
         int totalOrderAmount = calculator.calculateTotalOrderAmount(

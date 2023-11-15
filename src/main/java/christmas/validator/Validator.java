@@ -1,11 +1,11 @@
-package christmas.domain.order;
+package christmas.validator;
 
 import christmas.constants.Menu;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class OrderValidator {
+public class Validator {
     public void ensureNoEmptyInput(String input) {
         if (input.isEmpty()) {
             throw new IllegalArgumentException("아무 입력이 없음");

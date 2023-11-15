@@ -1,12 +1,12 @@
 package christmas.domain.calculator;
 
 import christmas.constants.EventBenefits;
-import christmas.domain.order.OrderCalculator;
+import christmas.domain.order.OrderAmount;
 import java.util.Map;
 
 public class Calculator {
     public int calculatePaymentAmount(Map<String, Integer> orderTable, Map<String, Integer> benefitsTable) {
-        OrderCalculator calculator = new OrderCalculator();
+        OrderAmount calculator = new OrderAmount();
         return calculator.calculateTotalOrderAmount(orderTable) - calculateTotalDiscountAmount(benefitsTable);
     }
 

@@ -1,10 +1,9 @@
 package christmas;
 
-import christmas.domain.event.EventManager;
-import christmas.domain.order.Order;
-import christmas.domain.order.OrderCalculator;
-import christmas.domain.order.OrderDetails;
-import christmas.domain.order.OrderValidator;
+import christmas.domain.event.BenifitsTable;
+import christmas.domain.order.OrderTable;
+import christmas.validator.Validator;
+import christmas.view.InputVeiw;
 import java.util.Map;
 
 public class Application {
@@ -14,11 +13,14 @@ public class Application {
         String input_date = "25";
         String input_order = "양송이수프-2,티본스테이크-1,제로콜라-2";
 
-        OrderValidator orderValidator = new OrderValidator();
-        OrderDetails order = new OrderDetails(orderValidator);
+        InputVeiw input = new InputVeiw();
+        input.askDateToVisit();
+
+        Validator validator = new Validator();
+        OrderTable order = new OrderTable(validator);
         Map<String, Integer> orderTable = order.makeOrderTable(input_order);
 
-        EventManager manager = new EventManager();
+        BenifitsTable manager = new BenifitsTable();
 
 
         System.out.println(orderTable);

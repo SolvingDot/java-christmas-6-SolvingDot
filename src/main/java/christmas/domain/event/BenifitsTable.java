@@ -1,11 +1,11 @@
 package christmas.domain.event;
 
 import christmas.constants.EventBenefits;
-import christmas.domain.order.OrderCalculator;
+import christmas.domain.order.OrderAmount;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EventManager {
+public class BenifitsTable {
     private static final int MINIMUM_AMOUNT = 10_000;
 
     public Map<String, Integer> applyEvents(int date, Map<String, Integer> orderTable) {
@@ -20,7 +20,7 @@ public class EventManager {
     }
 
     private int readOrderAmount(Map<String, Integer> orderTable) {
-        OrderCalculator calculator = new OrderCalculator();
+        OrderAmount calculator = new OrderAmount();
         return calculator.calculateTotalOrderAmount(orderTable);
     }
 
@@ -71,7 +71,7 @@ public class EventManager {
     }
 
     private int readSpecialBenefit(int date) {
-        SpecialDiscount special = new SpecialDiscount();
+        Special special = new Special();
         return special.checkForDiscount(date);
     }
 

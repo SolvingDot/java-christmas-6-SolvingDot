@@ -1,20 +1,21 @@
 package christmas.domain.order;
 
 import christmas.constants.Menu;
+import christmas.validator.Validator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class OrderDetails {
+public class OrderTable {
     private static final String COMMA = ",";
     private static final String DASH = "-";
     private static final int INCLUDE_EMPTY = -1;
 
-    private final OrderValidator validator;
+    private final Validator validator;
 
-    public OrderDetails(OrderValidator validator) {
+    public OrderTable(Validator validator) {
         this.validator = validator;
     }
 

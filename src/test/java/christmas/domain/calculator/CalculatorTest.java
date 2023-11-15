@@ -3,7 +3,7 @@ package christmas.domain.calculator;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.constants.EventBenefits;
-import christmas.domain.order.OrderCalculator;
+import christmas.domain.order.OrderAmount;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ class CalculatorTest {
     void paymentAfterDiscount() {
         // Given
         Calculator calculator = new Calculator();
-        OrderCalculator orderCalculator = new OrderCalculator();
+        OrderAmount orderAmount = new OrderAmount();
         Map<String, Integer> orderTable = Map.of("양송이수프", 1, "티본스테이크", 1, "초코케이크", 1);
         Map<String, Integer> benefitsTable = Map.of(
                 EventBenefits.DDAY_DISCOUNT.getDetail(), EventBenefits.DDAY_DISCOUNT.getBenefit(),
@@ -23,7 +23,7 @@ class CalculatorTest {
                 EventBenefits.SPECIAL_DISCOUNT.getDetail(), EventBenefits.NOTHING.getBenefit(),
                 EventBenefits.FREE_CHAMPAGNE.getDetail(), EventBenefits.NOTHING.getBenefit()
         );
-        int totalOrderAmount = orderCalculator.calculateTotalOrderAmount(orderTable);
+        int totalOrderAmount = orderAmount.calculateTotalOrderAmount(orderTable);
 
         // When
         int benefitsAmount = calculator.calculateTotalBenefitAmount(benefitsTable);
@@ -38,7 +38,7 @@ class CalculatorTest {
     void paymentAfterDiscountTest() {
         // Given
         Calculator calculator = new Calculator();
-        OrderCalculator orderCalculator = new OrderCalculator();
+        OrderAmount orderAmount = new OrderAmount();
         Map<String, Integer> orderTable = Map.of("양송이수프", 1, "티본스테이크", 3, "초코케이크", 1);
         Map<String, Integer> benefitsTable = Map.of(
                 EventBenefits.DDAY_DISCOUNT.getDetail(), EventBenefits.DDAY_DISCOUNT.getBenefit(),
@@ -47,7 +47,7 @@ class CalculatorTest {
                 EventBenefits.SPECIAL_DISCOUNT.getDetail(), EventBenefits.NOTHING.getBenefit(),
                 EventBenefits.FREE_CHAMPAGNE.getDetail(), EventBenefits.FREE_CHAMPAGNE.getBenefit()
         );
-        int totalOrderAmount = orderCalculator.calculateTotalOrderAmount(orderTable);
+        int totalOrderAmount = orderAmount.calculateTotalOrderAmount(orderTable);
 
         // When
         int benefitsAmount = calculator.calculateTotalBenefitAmount(benefitsTable);
