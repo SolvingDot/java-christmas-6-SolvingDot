@@ -5,13 +5,15 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import christmas.constants.EventBenefits;
 import christmas.constants.EventDates;
-import christmas.domain.event.Weekend;
+import christmas.constants.Menu;
 import java.util.stream.IntStream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 class WeekendTest {
+    private static final int THREE = 3;
+
     @DisplayName("날짜가 평일이면 주말 할인 금액은 0원이다.")
     @MethodSource("provideAllDatesInDecember")
     @ParameterizedTest
@@ -21,7 +23,7 @@ class WeekendTest {
         final Weekend weekend = new Weekend();
 
         // When
-        int discountAmount = weekend.checkForDiscount(date, "해산물파스타", 3);
+        int discountAmount = weekend.checkForDiscount(date, Menu.SEAFOOD_PASTA.getName(), THREE);
 
         // Then
         assertThat(discountAmount).isEqualTo(EventBenefits.NOTHING.getBenefit());
@@ -36,7 +38,7 @@ class WeekendTest {
         final Weekend weekend = new Weekend();
 
         // When
-        int discountAmount = weekend.checkForDiscount(date, "초코케이크", 3);
+        int discountAmount = weekend.checkForDiscount(date, Menu.CHOCOLATE_CAKE.getName(), THREE);
 
         // Then
         assertThat(discountAmount).isEqualTo(EventBenefits.NOTHING.getBenefit());
@@ -51,10 +53,10 @@ class WeekendTest {
         final Weekend weekend = new Weekend();
 
         // When
-        int discountAmount = weekend.checkForDiscount(date, "해산물파스타", 3);
+        int discountAmount = weekend.checkForDiscount(date, Menu.SEAFOOD_PASTA.getName(), THREE);
 
         // Then
-        assertThat(discountAmount).isEqualTo(3 * EventBenefits.WEEKEND_DISCOUNT.getBenefit());
+        assertThat(discountAmount).isEqualTo(THREE * EventBenefits.WEEKEND_DISCOUNT.getBenefit());
     }
 
     private static IntStream provideAllDatesInDecember() {

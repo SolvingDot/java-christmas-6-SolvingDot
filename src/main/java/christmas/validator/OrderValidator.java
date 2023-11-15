@@ -1,26 +1,30 @@
 package christmas.validator;
 
 import christmas.constants.Menu;
+import christmas.constants.message.ErrorMessage;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 public class OrderValidator {
+    private static final String DRINKS = "음료";
+    private static final String NUMERIC = "^[0-9]*$";
+
     public void ensureNoEmptyInput(String input) {
         if (input.isEmpty()) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
 
     public void ensureInputHasDash(String input) {
         if (!input.contains("-")) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
 
     public void ensureNoEmptyPlace(List<String> splitInput) {
         if (containsEmptyPlace(splitInput)) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
 
@@ -30,23 +34,23 @@ public class OrderValidator {
 
     public void ensureOnlyNumber(String input) {
         if (!isNumeric(input)) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
 
     private boolean isNumeric(String input) {
-        return input.matches("^[0-9]*$");
+        return input.matches(NUMERIC);
     }
 
     public void ensureNumberOfMenuMoreThanOne(int numberOfMenu) {
         if (numberOfMenu < 1) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
 
     public void ensureNameIsOnTheMenu(String menuName) {
         if (!isOnTheMenu(menuName)) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
 
@@ -56,19 +60,19 @@ public class OrderValidator {
 
     public void ensureNameIsNotDuplicated(String menuName, Map<String, Integer> orderTable) {
         if (orderTable.containsKey(menuName)) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
 
     public void ensureTotalNumberOfMenuIsLimitedTwenty(int totalNumberOfMenu) {
         if (totalNumberOfMenu > 20) {
-            throw new IllegalArgumentException("[ERROR] 메뉴는 한 번에 최대 20개까지만 주문할 수 있습니다.");
+            throw new IllegalArgumentException(ErrorMessage.MAXIMUM_ORDER.getMessage());
         }
     }
 
     public void ensureThereAreNotOnlyDrinks(List<String> menuTypes) {
-        if (menuTypes.stream().allMatch(type -> type.equals(Menu.ZERO_COLA.getType()))) {
-            throw new IllegalArgumentException("[ERROR] 음료만 주문 시, 주문할 수 없습니다.");
+        if (menuTypes.stream().allMatch(type -> type.equals(DRINKS))) {
+            throw new IllegalArgumentException(ErrorMessage.ONLY_DRINKS.getMessage());
         }
     }
 }

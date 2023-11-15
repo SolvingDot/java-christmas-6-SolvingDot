@@ -1,27 +1,30 @@
 package christmas.validator;
 
 import christmas.constants.EventDates;
+import christmas.constants.message.ErrorMessage;
 
 public class DateValidator {
+    private static final String NUMERIC = "^[0-9]*$";
+
     public void ensureNoEmptyInput(String input) {
         if (input.isEmpty()) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_DATE.getMessage());
         }
     }
 
     public void ensureOnlyNumber(String input) {
         if (!isNumeric(input)) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_DATE.getMessage());
         }
     }
 
     private boolean isNumeric(String input) {
-        return input.matches("^[0-9]*$");
+        return input.matches(NUMERIC);
     }
 
     public void ensureDateInRange(int date) {
         if (date < EventDates.FIRST_DATE || date > EventDates.LAST_DATE) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_DATE.getMessage());
         }
     }
 }

@@ -1,6 +1,7 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import christmas.constants.message.InputMessage;
 import christmas.domain.date.Date;
 import christmas.domain.date.DateConverter;
 import christmas.domain.order.OrderTable;
@@ -8,6 +9,10 @@ import christmas.validator.DateValidator;
 import java.util.Map;
 
 public class InputVeiw {
+    public void introducePlanner() {
+        System.out.println(InputMessage.INTRO.getMessage());
+    }
+
     public Date askToDateToVisit(InputVeiw input, Date date, DateValidator dateValidator) {
         while (true) {
             try {
@@ -21,7 +26,7 @@ public class InputVeiw {
     }
 
     private int askDateToVisitOnce() {
-        System.out.println("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)");
+        System.out.println(InputMessage.ASK_DATE.getMessage());
         DateValidator dateValidator = new DateValidator();
         DateConverter converter = new DateConverter(dateValidator);
         return converter.convertToDate(Console.readLine());
@@ -40,7 +45,7 @@ public class InputVeiw {
     }
 
     private String askToOrderOnce() {
-        System.out.println("주문하실 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
+        System.out.println(InputMessage.ASK_TO_ORDER.getMessage());
         return Console.readLine();
     }
 }

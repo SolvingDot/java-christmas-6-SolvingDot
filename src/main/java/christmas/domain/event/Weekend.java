@@ -5,6 +5,8 @@ import christmas.constants.EventDates;
 import christmas.constants.Menu;
 
 public class Weekend {
+    private static final String MAIN_DISH = "메인";
+
     public int checkForDiscount(int date, String menuName, int numberOfMenu) {
         if (isWeekend(date) && isMainDish(menuName)) {
             return calculateDiscountAmount(numberOfMenu);
@@ -17,16 +19,7 @@ public class Weekend {
     }
 
     private boolean isMainDish(String menuName) {
-        return readTypeOfMenu(menuName).equals("메인");
-    }
-
-    private String readTypeOfMenu(String menuName) {
-        for (Menu menu : Menu.values()) {
-            if (menu.getName().equals(menuName)) {
-                return menu.getType();
-            }
-        }
-        throw new IllegalArgumentException("메뉴판에 없는 메뉴입니다.");
+        return Menu.getTypeByName(menuName).equals(MAIN_DISH);
     }
 
     private int calculateDiscountAmount(int numberOfMenu) {

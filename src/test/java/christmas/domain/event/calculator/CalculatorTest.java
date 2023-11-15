@@ -1,4 +1,4 @@
-package christmas.domain.calculator;
+package christmas.domain.event.calculator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -9,9 +9,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class CalculatorTest {
-    @DisplayName("할인 후 예상 결제 금액 = 할인 전 총주문 금액 - 할인 금액 : 샴페인 증정 안 받았을 때")
+    @DisplayName("샴페인 증정 안 받았을 때 : 할인 후 예상 결제 금액 = 총 주문 금액 - 혜택 금액")
     @Test
-    void paymentAfterDiscount() {
+    void createPaymentAfterDiscountWhenNoGift() {
         // Given
         Calculator calculator = new Calculator();
         OrderPrice orderPrice = new OrderPrice();
@@ -33,9 +33,9 @@ class CalculatorTest {
         assertThat(paymentAmount).isEqualTo(totalOrderAmount - benefitsAmount);
     }
 
-    @DisplayName("할인 후 예상 결제 금액 = 할인 전 총주문 금액 - 할인 금액 : 샴페인 증정 받았을 때")
+    @DisplayName("샴페인 증정 받았을 때 : 할인 후 예상 결제 금액 = 총 주문 금액 - 할인 금액(혜택 금액에서 샴페인 가격 제외)")
     @Test
-    void paymentAfterDiscountTest() {
+    void createPaymentAfterDiscountWithGift() {
         // Given
         Calculator calculator = new Calculator();
         OrderPrice orderPrice = new OrderPrice();

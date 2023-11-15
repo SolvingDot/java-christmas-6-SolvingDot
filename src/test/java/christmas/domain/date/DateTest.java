@@ -1,8 +1,7 @@
-package christmas.domain;
+package christmas.domain.date;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import christmas.domain.date.Date;
 import christmas.validator.DateValidator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

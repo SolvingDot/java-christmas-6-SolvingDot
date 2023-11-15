@@ -44,13 +44,11 @@ public class BenifitsTable {
         return benefitsTable;
     }
 
-    // 디데이 이벤트 결과
     private int readDdayBenefit(int date) {
         Dday dday = new Dday();
         return dday.checkForDiscount(date);
     }
 
-    // 평일 할인 이벤트 결과
     private int readWeekdayBenefit(int date, Map<String, Integer> orderTable) {
         Weekday weekday = new Weekday();
         int weekdayBenefit = EventBenefits.NOTHING.getBenefit();
@@ -60,7 +58,6 @@ public class BenifitsTable {
         return weekdayBenefit;
     }
 
-    // 주말 할인 이벤트 결과
     private int readWeekendBenefit(int date, Map<String, Integer> orderTable) {
         Weekend weekend = new Weekend();
         int weekendBenefit = EventBenefits.NOTHING.getBenefit();

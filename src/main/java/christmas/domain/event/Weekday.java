@@ -5,6 +5,8 @@ import christmas.constants.EventDates;
 import christmas.constants.Menu;
 
 public class Weekday {
+    private static final String DESSERT = "디저트";
+
     public int checkForDiscount(int date, String menuName, int numberOfMenu) {
         if (isWeekday(date) && isDessert(menuName)) {
             return calculateDiscountAmount(numberOfMenu);
@@ -17,7 +19,7 @@ public class Weekday {
     }
 
     private boolean isDessert(String menuName) {
-        return Menu.getTypeByName(menuName).equals("디저트");
+        return Menu.getTypeByName(menuName).equals(DESSERT);
     }
 
     private int calculateDiscountAmount(int numberOfMenu) {

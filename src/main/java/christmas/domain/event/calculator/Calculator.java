@@ -1,7 +1,6 @@
-package christmas.domain.calculator;
+package christmas.domain.event.calculator;
 
 import christmas.constants.EventBenefits;
-import christmas.domain.event.BenifitsTable;
 import christmas.domain.event.Gift;
 import christmas.domain.order.OrderPrice;
 import java.util.Map;

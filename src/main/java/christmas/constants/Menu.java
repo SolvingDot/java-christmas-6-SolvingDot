@@ -1,7 +1,5 @@
 package christmas.constants;
 
-import java.util.List;
-
 public enum Menu {
     // 에피타이저
     MUSHROOM_SOUP("양송이수프", 6_000, "에피타이저"),

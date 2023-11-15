@@ -8,6 +8,7 @@ public class DateConverter {
     public DateConverter(DateValidator orderValidator) {
         this.dateValidator = orderValidator;
     }
+
     public int convertToDate(String input) {
         dateValidator.ensureNoEmptyInput(input);
         dateValidator.ensureOnlyNumber(input);
