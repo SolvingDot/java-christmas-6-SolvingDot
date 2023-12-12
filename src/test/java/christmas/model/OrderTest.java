@@ -34,6 +34,29 @@ class OrderTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
+    @DisplayName("음료만 주문한 경우 -> 예외 발생")
+    @Test
+    void 예외_발생_테스트_음료만_주문() {
+        // Given
+        Order order = new Order();
+
+        // When, Then
+        assertThatThrownBy(() -> order.read("제로콜라-1,레드와인-1,샴페인-1"))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @DisplayName("메뉴 20개 초과 시 -> 예외 발생")
+    @ValueSource(strings = {"양송이수프-21", "양송이수프-10,레드와인-10,초코케이크-1"})
+    @ParameterizedTest
+    void 예외_발생_테스트_20개_초과(String input) {
+        // Given
+        Order order = new Order();
+
+        // When, Then
+        assertThatThrownBy(() -> order.read(input))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
     @DisplayName("입력값에서 메뉴 이름과 개수를 나누고, 개수를 숫자로 변환")
     @Test
     void 기능_테스트() {
