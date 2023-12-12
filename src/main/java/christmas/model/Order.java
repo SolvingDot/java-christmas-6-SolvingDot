@@ -87,7 +87,7 @@ public class Order {
         return count;
     }
 
-    public MenuType getTypeByName(String menuName) {
+    private MenuType getTypeByName(String menuName) {
         return Arrays.stream(Menu.values())
                 .filter(menu -> menu.getName().equals(menuName))
                 .findFirst()
