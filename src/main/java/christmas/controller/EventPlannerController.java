@@ -5,15 +5,15 @@ import christmas.domain.event.BenifitsTable;
 import christmas.domain.order.OrderTable;
 import christmas.validator.DateValidator;
 import christmas.validator.OrderValidator;
-import christmas.view.InputVeiw;
+import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.Map;
 
 public class EventPlannerController {
-    private final InputVeiw input;
+    private final InputView input;
     private final OutputView output;
 
-    public EventPlannerController(InputVeiw input, OutputView output) {
+    public EventPlannerController(InputView input, OutputView output) {
         this.input = input;
         this.output = output;
     }
@@ -33,13 +33,13 @@ public class EventPlannerController {
 
     private Date readExpectedVisitDate(DateValidator dateValidator) {
         Date date = null;
-        return input.askToDateToVisit(input, date, dateValidator);
+        return input.askToDateToVisit(date, dateValidator);
     }
 
     private Map<String, Integer> takeOrder(OrderValidator orderValidator) {
         OrderTable order = new OrderTable(orderValidator);
         Map<String, Integer> orderTable = null;
-        return input.askToOrder(input, order, orderTable);
+        return input.askToOrder(order, orderTable);
     }
 
     private static Map<String, Integer> applyEveryEvent(Date date, Map<String, Integer> orderTable) {

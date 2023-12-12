@@ -3,10 +3,9 @@ package christmas.domain.event;
 import christmas.constants.EventBenefits;
 import christmas.constants.EventDates;
 import christmas.constants.Menu;
+import christmas.constants.MenuType;
 
 public class Weekday {
-    private static final String DESSERT = "디저트";
-
     public int checkForDiscount(int date, String menuName, int numberOfMenu) {
         if (isWeekday(date) && isDessert(menuName)) {
             return calculateDiscountAmount(numberOfMenu);
@@ -19,7 +18,7 @@ public class Weekday {
     }
 
     private boolean isDessert(String menuName) {
-        return Menu.getTypeByName(menuName).equals(DESSERT);
+        return Menu.getTypeByName(menuName).equals(MenuType.DESSERT.getType());
     }
 
     private int calculateDiscountAmount(int numberOfMenu) {

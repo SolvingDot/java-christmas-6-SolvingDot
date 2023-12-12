@@ -8,15 +8,15 @@ import christmas.domain.order.OrderTable;
 import christmas.validator.DateValidator;
 import java.util.Map;
 
-public class InputVeiw {
+public class InputView {
     public void introducePlanner() {
         System.out.println(InputMessage.INTRO.getMessage());
     }
 
-    public Date askToDateToVisit(InputVeiw input, Date date, DateValidator dateValidator) {
+    public Date askToDateToVisit(Date date, DateValidator dateValidator) {
         while (true) {
             try {
-                date = new Date(input.askDateToVisitOnce(), dateValidator);
+                date = new Date(askDateToVisitOnce(), dateValidator);
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -32,10 +32,10 @@ public class InputVeiw {
         return converter.convertToDate(Console.readLine());
     }
 
-    public Map<String, Integer> askToOrder(InputVeiw input, OrderTable order, Map<String, Integer> orderTable) {
+    public Map<String, Integer> askToOrder(OrderTable order, Map<String, Integer> orderTable) {
         while (true) {
             try {
-                orderTable = order.makeOrderTable(input.askToOrderOnce());
+                orderTable = order.makeOrderTable(askToOrderOnce());
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());

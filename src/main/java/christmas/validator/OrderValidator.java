@@ -1,13 +1,16 @@
 package christmas.validator;
 
 import christmas.constants.Menu;
+import christmas.constants.MenuType;
 import christmas.constants.message.ErrorMessage;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 public class OrderValidator {
-    private static final String DRINKS = "음료";
+    private static final int MINIMUM_ORDER = 1;
+    private static final int MAXIMUM_ORDER = 20;
+    private static final String DASH = "-";
     private static final String NUMERIC = "^[0-9]*$";
 
     public void ensureNoEmptyInput(String input) {
@@ -17,7 +20,7 @@ public class OrderValidator {
     }
 
     public void ensureInputHasDash(String input) {
-        if (!input.contains("-")) {
+        if (!input.contains(DASH)) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
@@ -43,7 +46,7 @@ public class OrderValidator {
     }
 
     public void ensureNumberOfMenuMoreThanOne(int numberOfMenu) {
-        if (numberOfMenu < 1) {
+        if (numberOfMenu < MINIMUM_ORDER) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
@@ -65,13 +68,13 @@ public class OrderValidator {
     }
 
     public void ensureTotalNumberOfMenuIsLimitedTwenty(int totalNumberOfMenu) {
-        if (totalNumberOfMenu > 20) {
+        if (totalNumberOfMenu > MAXIMUM_ORDER) {
             throw new IllegalArgumentException(ErrorMessage.MAXIMUM_ORDER.getMessage());
         }
     }
 
     public void ensureThereAreNotOnlyDrinks(List<String> menuTypes) {
-        if (menuTypes.stream().allMatch(type -> type.equals(DRINKS))) {
+        if (menuTypes.stream().allMatch(type -> type.equals(MenuType.DESSERT.getType()))) {
             throw new IllegalArgumentException(ErrorMessage.ONLY_DRINKS.getMessage());
         }
     }

@@ -4,6 +4,7 @@ import christmas.constants.EventBenefits;
 import christmas.constants.EventDates;
 
 public class Dday {
+    private static final int DISCOUNT_INCREASE = 100;
     private static final int TODAY = 1;
 
     public int checkForDiscount(int date) {
@@ -18,7 +19,6 @@ public class Dday {
     }
 
     private int calculateDiscountAmount(int date) {
-        return EventBenefits.DDAY_DISCOUNT.getBenefit()
-                + EventBenefits.DDAY_DISCOUNT_INCREASE.getBenefit() * (date - TODAY);
+        return EventBenefits.DDAY_DISCOUNT.getBenefit() + DISCOUNT_INCREASE * (date - TODAY);
     }
 }
