@@ -27,6 +27,7 @@ public class OutputView {
 
     public void printPreviewStart() {
         System.out.println(Message.OUTPUT_PREVIEW_START.message);
+        System.out.println();
     }
 
     public void printMenuDetails(Map<String, Integer> orderSheet) {
@@ -34,11 +35,13 @@ public class OutputView {
         for (String menuName : orderSheet.keySet()) {
             System.out.println(String.format(FORMAT_MENU, menuName, orderSheet.get(menuName)));
         }
+        System.out.println();
     }
 
     public void printOrderAmount(int totalAmount) {
         System.out.println(Message.OUTPUT_ORDER_AMOUNT.message);
         System.out.println(applyPriceFormat(totalAmount));
+        System.out.println();
     }
 
     public void printGiftaway(Map<EventName, Integer> benefitSheet) {
@@ -49,12 +52,14 @@ public class OutputView {
         if (benefitSheet.get(EventName.GIFTAWAY_EVENT).equals(Menu.CHAMPAGNE.getPrice())) {
             System.out.println(Message.OUTPUT_GIFTAWAY_DETAILS.message);
         }
+        System.out.println();
     }
 
     public void printBenefitDetails(Map<EventName, Integer> benefitSheet) {
         System.out.println(Message.OUTPUT_BENEFIT_DETAILS.message);
         printNoBenefitWhenThereIsNoBenefit(benefitSheet);
         printBenefitDetailsWhenThereIsBenefit(benefitSheet);
+        System.out.println();
     }
 
     private void printBenefitDetailsWhenThereIsBenefit(Map<EventName, Integer> benefitSheet) {
@@ -81,11 +86,13 @@ public class OutputView {
         if (totalBenefit != DiscountAmount.NO_DISCOUNT) {
             System.out.println(applyDiscountFormat(totalBenefit));
         }
+        System.out.println();
     }
 
     public void printAmountToPay(int amountToPay) {
         System.out.println(Message.OUTPUT_PAYMENT_AMOUNT.message);
         System.out.println(applyPriceFormat(amountToPay));
+        System.out.println();
     }
 
     public void printBadge(String badgeName) {
