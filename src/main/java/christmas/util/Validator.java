@@ -1,8 +1,6 @@
 package christmas.util;
 
 import christmas.model.Menu;
-import christmas.util.Util.Regex;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.regex.Pattern;
 

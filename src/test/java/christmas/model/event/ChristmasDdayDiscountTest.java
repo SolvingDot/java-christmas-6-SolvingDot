@@ -1,7 +1,8 @@
-package christmas.model;
+package christmas.model.event;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.model.event.ChristmasDdayDiscount;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
