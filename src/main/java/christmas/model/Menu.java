@@ -44,4 +44,20 @@ public enum Menu {
     public MenuType getType() {
         return type;
     }
+
+    public static int getPriceByName(String menuName) {
+        return Arrays.stream(Menu.values())
+                .filter(menu -> menu.getName().equals(menuName))
+                .findFirst()
+                .map(Menu::getPrice)
+                .orElseThrow(() -> new IllegalArgumentException());
+    }
+
+    public static MenuType getTypeByName(String menuName) {
+        return Arrays.stream(Menu.values())
+                .filter(menu -> menu.getName().equals(menuName))
+                .findFirst()
+                .map(Menu::getType)
+                .orElseThrow(() -> new IllegalArgumentException());
+    }
 }

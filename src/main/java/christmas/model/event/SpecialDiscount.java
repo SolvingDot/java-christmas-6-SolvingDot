@@ -1,13 +1,14 @@
 package christmas.model.event;
 
+import christmas.model.event.constant.DiscountAmount;
+import christmas.model.event.constant.EventDate;
+
 public class SpecialDiscount {
-    private static final int NO_DISCOUNT = 0;
-    private static final int DISCOUNT_AMOUNT = 1000;
 
     public int apply(int date) {
         if (!EventDate.SPECIAL_DAY.contains(date)) {
-            return NO_DISCOUNT;
+            return DiscountAmount.NO_DISCOUNT;
         }
-        return DISCOUNT_AMOUNT;
+        return DiscountAmount.SPECIAL_DISCOUNT;
     }
 }

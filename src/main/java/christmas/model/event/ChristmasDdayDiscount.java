@@ -1,17 +1,16 @@
 package christmas.model.event;
 
+import christmas.model.event.constant.DiscountAmount;
+import christmas.model.event.constant.EventDate;
+
 public class ChristmasDdayDiscount {
-    private static final int CHRISTMAS = 25;
-    private static final int NO_DISCOUNT = 0;
-    private static final int BASIC_DISCOUNT = 1000;
     private static final int AMOUNT_INCREASED = 100;
-    private static final int FIRST_DAY = 1;
 
     public int apply(int date) {
-        if (date > CHRISTMAS) {
-            return NO_DISCOUNT;
+        if (date > EventDate.CHRISTMAS) {
+            return DiscountAmount.NO_DISCOUNT;
         }
-        int discount = BASIC_DISCOUNT + AMOUNT_INCREASED * (date - FIRST_DAY);
+        int discount = DiscountAmount.CHRISTMAS_BASIC + AMOUNT_INCREASED * (date - EventDate.FIRST_DAY);
         return discount;
     }
 }

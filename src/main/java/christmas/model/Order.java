@@ -79,19 +79,11 @@ public class Order {
     private int countBerverage(Map<String, Integer> orderSheet) {
         int count = NO_COUNT;
         for (String menuName : orderSheet.keySet()) {
-            if (!getTypeByName(menuName).equals(MenuType.BEVERAGE)) {
+            if (!Menu.getTypeByName(menuName).equals(MenuType.BEVERAGE)) {
                 break;
             }
             count++;
         }
         return count;
-    }
-
-    private MenuType getTypeByName(String menuName) {
-        return Arrays.stream(Menu.values())
-                .filter(menu -> menu.getName().equals(menuName))
-                .findFirst()
-                .map(Menu::getType)
-                .orElseThrow(() -> new IllegalArgumentException());
     }
 }
