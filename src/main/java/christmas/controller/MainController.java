@@ -3,6 +3,7 @@ package christmas.controller;
 import christmas.model.AmountOfOrder;
 import christmas.model.Date;
 import christmas.model.Order;
+import christmas.model.event.constant.EventName;
 import christmas.util.ErrorMessage;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -29,6 +30,19 @@ public class MainController {
         // 할인 전 총주문 금액
         AmountOfOrder amountOfOrder = new AmountOfOrder();
         int totalAmount = amountOfOrder.calculate(orderSheet);
+
+        // 이벤트 혜택 결과 취합
+        EventController eventController = new EventController();
+        Map<EventName, Integer> benefitSheet = eventController.makeBenifitSheet(date, orderSheet, totalAmount);
+
+        // 총 혜택 금액,
+
+        // 이벤트 결과 출력
+        outputView.printPreviewStart();
+        outputView.printMenuDetails(orderSheet);
+        outputView.printOrderAmount(totalAmount);
+        outputView.printGiftaway(benefitSheet);
+        outputView.printBenefitDetails(benefitSheet);
     }
 
     private int readDate() {
