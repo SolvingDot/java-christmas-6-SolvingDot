@@ -3,6 +3,8 @@ package christmas.controller;
 import christmas.model.AmountOfOrder;
 import christmas.model.Date;
 import christmas.model.Order;
+import christmas.model.event.Badge;
+import christmas.model.event.CashDesk;
 import christmas.model.event.constant.EventName;
 import christmas.util.ErrorMessage;
 import christmas.view.InputView;
@@ -20,29 +22,42 @@ public class MainController {
 
     public void play() {
         outputView.printGameStart();
-
-        // 날짜 입력, 검증, 변환 (예외 발생시 반복)
         int date = readDate();
-
-        // 주문 입력, 검증, 변환 (예외 발생시 반복)
         Map<String, Integer> orderSheet = readOrder();
+        int totalAmount = sumAmountOfOrder(orderSheet);
+        
+        Map<EventName, Integer> benefitSheet = collectEventResults(date, orderSheet, totalAmount);
 
-        // 할인 전 총주문 금액
-        AmountOfOrder amountOfOrder = new AmountOfOrder();
-        int totalAmount = amountOfOrder.calculate(orderSheet);
+        // 총 혜택 금액, 예상 결제 금액 계산
+        CashDesk cashDesk = new CashDesk();
+        int totalBenefit = cashDesk.calculateTotalBenefit(benefitSheet);
+        int amountToPay = cashDesk.calculateAmountToPay(totalAmount, benefitSheet);
 
-        // 이벤트 혜택 결과 취합
-        EventController eventController = new EventController();
-        Map<EventName, Integer> benefitSheet = eventController.makeBenifitSheet(date, orderSheet, totalAmount);
-
-        // 총 혜택 금액,
+        // 배지
+        Badge badge = new Badge();
+        String badgeName = badge.give(totalBenefit);
 
         // 이벤트 결과 출력
         outputView.printPreviewStart();
+        
         outputView.printMenuDetails(orderSheet);
         outputView.printOrderAmount(totalAmount);
+        
         outputView.printGiftaway(benefitSheet);
         outputView.printBenefitDetails(benefitSheet);
+        outputView.printTotalBenefit(totalBenefit);
+        outputView.printAmountToPay(amountToPay);
+        outputView.printBadge(badgeName);
+    }
+
+    private Map<EventName, Integer> collectEventResults(int date, Map<String, Integer> orderSheet, int totalAmount) {
+        EventController eventController = new EventController();
+        return eventController.makeBenefitSheet(date, orderSheet, totalAmount);
+    }
+
+    private int sumAmountOfOrder(Map<String, Integer> orderSheet) {
+        AmountOfOrder amountOfOrder = new AmountOfOrder();
+        return amountOfOrder.calculate(orderSheet);
     }
 
     private int readDate() {

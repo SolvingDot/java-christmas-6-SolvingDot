@@ -16,7 +16,7 @@ public class EventController {
     final SpecialDiscount specialDiscount = new SpecialDiscount();
     final GiftawayEvent giftawayEvent = new GiftawayEvent();
 
-    public Map<EventName, Integer> makeBenifitSheet(int date, Map<String, Integer> orderSheet, int totalAmount) {
+    public Map<EventName, Integer> makeBenefitSheet(int date, Map<String, Integer> orderSheet, int totalAmount) {
         // 이벤트 혜택 결과
         Map<EventName, Integer> benefitSheet = new HashMap<>();
         benefitSheet.put(EventName.CHRISTMAS_DISCOUNT, christmasDdayDiscount.apply(date));

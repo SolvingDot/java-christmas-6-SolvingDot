@@ -53,6 +53,11 @@ public class OutputView {
 
     public void printBenefitDetails(Map<EventName, Integer> benefitSheet) {
         System.out.println(Message.OUTPUT_BENEFIT_DETAILS.message);
+        printNoBenefitWhenThereIsNoBenefit(benefitSheet);
+        printBenefitDetailsWhenThereIsBenefit(benefitSheet);
+    }
+
+    private void printBenefitDetailsWhenThereIsBenefit(Map<EventName, Integer> benefitSheet) {
         for (EventName event : EventName.values()) {
             if (benefitSheet.get(event).equals(DiscountAmount.NO_DISCOUNT)) {
                 continue;
@@ -60,6 +65,32 @@ public class OutputView {
             System.out.println(String.format(FORMAT_BENEFIT_DETAILS,
                     event.getName(), applyDiscountFormat(benefitSheet.get(event))));
         }
+    }
+
+    private static void printNoBenefitWhenThereIsNoBenefit(Map<EventName, Integer> benefitSheet) {
+        if (benefitSheet.values().stream().allMatch(value -> value.equals(DiscountAmount.NO_DISCOUNT))) {
+            System.out.println(Message.OUTPUT_NO_BENEFIT.message);
+        }
+    }
+
+    public void printTotalBenefit(int totalBenefit) {
+        System.out.println(Message.OUTPUT_BENEFIT_AMOUNT.message);
+        if (totalBenefit == DiscountAmount.NO_DISCOUNT) {
+            System.out.println(applyPriceFormat(totalBenefit));
+        }
+        if (totalBenefit != DiscountAmount.NO_DISCOUNT) {
+            System.out.println(applyDiscountFormat(totalBenefit));
+        }
+    }
+
+    public void printAmountToPay(int amountToPay) {
+        System.out.println(Message.OUTPUT_PAYMENT_AMOUNT.message);
+        System.out.println(applyPriceFormat(amountToPay));
+    }
+
+    public void printBadge(String badgeName) {
+        System.out.println(Message.OUTPUT_EVENT_BADGE.message);
+        System.out.println(badgeName);
     }
 
     private String applyPriceFormat(int price) {
